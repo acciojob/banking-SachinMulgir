@@ -1,13 +1,18 @@
 package com.driver;
 
+import javax.naming.InsufficientResourcesException;
+
 public class BankAccount {
 
-    private String name;
-    private double balance;
-    private double minBalance;
+    public String name;
+    public double balance;
+    public double minBalance;
+
 
     public BankAccount(String name, double balance, double minBalance) {
-
+        this.name = name;
+        this.balance = balance;
+        this.minBalance = minBalance;
     }
 
     public String generateAccountNumber(int digits, int sum) throws Exception{
@@ -19,13 +24,16 @@ public class BankAccount {
     }
 
     public void deposit(double amount) {
-        //add amount to balance
-
+        balance += amount;
     }
 
     public void withdraw(double amount) throws Exception {
         // Remember to throw "Insufficient Balance" exception, if the remaining amount would be less than minimum balance
-
+        if( (this.balance - amount) < minBalance ){
+            throw new InsufficientBalance("Insufficient Balance");
+        }
+        balance = balance - amount;
     }
+
 
 }
